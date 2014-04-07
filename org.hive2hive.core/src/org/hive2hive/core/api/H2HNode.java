@@ -35,7 +35,7 @@ public class H2HNode implements IH2HNode {
 	 * @param networkConfiguration the network parameters, important to know how to bootstrap and which port
 	 *            to listen to.
 	 * @param fileConfiguration the file configuration
-	 * @return
+	 * @return a Hive2Hive node instance
 	 */
 	public static IH2HNode createNode(INetworkConfiguration networkConfiguration,
 			IFileConfiguration fileConfiguration) {
@@ -54,15 +54,17 @@ public class H2HNode implements IH2HNode {
 
 	@Override
 	public IUserManager getUserManager() {
-		if (userManager == null)
+		if (userManager == null) {
 			userManager = new H2HUserManager(networkManager, fileConfiguration);
+		}
 		return userManager;
 	}
 
 	@Override
 	public IFileManager getFileManager() {
-		if (fileManager == null)
+		if (fileManager == null) {
 			fileManager = new H2HFileManager(networkManager);
+		}
 		return fileManager;
 	}
 

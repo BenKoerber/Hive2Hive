@@ -26,10 +26,15 @@ import org.hive2hive.core.processes.implementations.files.util.FileRecursionUtil
 
 public class H2HFileManager extends H2HManager implements IFileManager {
 
+	/**
+	 * Create a new manager that handles file operations.
+	 * 
+	 * @param networkManager the network manager of the Hive2Hive node.
+	 */
 	public H2HFileManager(NetworkManager networkManager) {
 		super(networkManager);
 	}
-	
+
 	@Override
 	public IProcessComponent add(File file) throws NoSessionException, NoPeerConnectionException,
 			IllegalFileLocation {
@@ -63,8 +68,7 @@ public class H2HFileManager extends H2HManager implements IFileManager {
 	}
 
 	@Override
-	public IProcessComponent update(File file) throws NoSessionException, IllegalArgumentException,
-			NoPeerConnectionException {
+	public IProcessComponent update(File file) throws NoSessionException, NoPeerConnectionException {
 		if (file.isDirectory()) {
 			throw new IllegalArgumentException("A folder can have one version only");
 		} else if (!file.exists()) {
@@ -129,8 +133,7 @@ public class H2HFileManager extends H2HManager implements IFileManager {
 
 	@Override
 	public IProcessComponent recover(File file, IVersionSelector versionSelector)
-			throws FileNotFoundException, IllegalArgumentException, NoSessionException,
-			NoPeerConnectionException {
+			throws FileNotFoundException, NoSessionException, NoPeerConnectionException {
 		// do some verifications
 		if (file.isDirectory()) {
 			throw new IllegalArgumentException("A foler has only one version");
@@ -149,24 +152,28 @@ public class H2HFileManager extends H2HManager implements IFileManager {
 
 	@Override
 	public IProcessComponent share(File folder, String userId, PermissionType permission)
-			throws IllegalFileLocation, IllegalArgumentException, NoSessionException,
-			NoPeerConnectionException {
+			throws IllegalFileLocation, NoSessionException, NoPeerConnectionException {
 		// verify
-		if (!folder.isDirectory())
+		if (!folder.isDirectory()) {
 			throw new IllegalArgumentException("File has to be a folder.");
-		if (!folder.exists())
+		}
+
+		if (!folder.exists()) {
 			throw new IllegalFileLocation("Folder does not exist.");
+		}
 
 		H2HSession session = networkManager.getSession();
 		Path root = session.getRoot();
 
 		// folder must be in the given root directory
-		if (!folder.toPath().toString().startsWith(root.toString()))
+		if (!folder.toPath().toString().startsWith(root.toString())) {
 			throw new IllegalFileLocation("Folder must be in root of the H2H directory.");
+		}
 
 		// sharing root folder is not allowed
-		if (folder.toPath().toString().equals(root.toString()))
+		if (folder.toPath().toString().equals(root.toString())) {
 			throw new IllegalFileLocation("Root folder of the H2H directory can't be shared.");
+		}
 
 		IProcessComponent shareProcess = ProcessFactory.instance().createShareProcess(folder,
 				new UserPermission(userId, permission), networkManager);

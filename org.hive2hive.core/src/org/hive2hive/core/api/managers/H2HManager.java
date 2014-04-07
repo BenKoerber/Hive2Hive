@@ -16,17 +16,34 @@ public abstract class H2HManager implements IManager {
 
 	protected final NetworkManager networkManager;
 
+	// stores if autostart is enabled for this manager
 	private boolean isAutostart = H2HConstants.DEFAULT_AUTOSTART_PROCESSES;
 
+	/**
+	 * Create a new manager.
+	 * 
+	 * @param networkManager the network manager of the current node
+	 */
 	protected H2HManager(NetworkManager networkManager) {
 		this.networkManager = networkManager;
 	}
 
+	/**
+	 * If autostart is enabled, start the process, else ignore it.
+	 * 
+	 * @param processComponent the process component to submit
+	 */
 	protected void submitProcess(IProcessComponent processComponent) {
-		if (isAutostart)
+		if (isAutostart) {
 			executeProcess(processComponent);
+		}
 	}
 
+	/**
+	 * Start the execution of a process.
+	 * 
+	 * @param processComponent the component to execute
+	 */
 	protected void executeProcess(IProcessComponent processComponent) {
 		try {
 			processComponent.start();
@@ -36,6 +53,11 @@ public abstract class H2HManager implements IManager {
 		}
 	}
 
+	/**
+	 * Returns the network manager.
+	 * 
+	 * @return the network manager
+	 */
 	public NetworkManager getNetworkManager() {
 		return networkManager;
 	}

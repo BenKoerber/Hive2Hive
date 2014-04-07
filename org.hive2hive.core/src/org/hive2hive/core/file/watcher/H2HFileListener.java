@@ -79,9 +79,18 @@ public class H2HFileListener implements FileAlterationListener {
 		// nothing to do
 	}
 
+	/**
+	 * Logs file events.
+	 * 
+	 * @param reason the kind of the event
+	 * @param file the file that has triggered
+	 */
 	private void printFileDetails(String reason, File file) {
-		logger.debug(String.format("%s %s: %s\n", file.isDirectory() ? "Directory" : "File", reason,
-				file.getAbsolutePath()));
+		if (file.isDirectory()) {
+			logger.debug(String.format("%s %s: %s\n", "Directory", reason, file.getAbsolutePath()));
+		} else {
+			logger.debug(String.format("%s %s: %s\n", "File", reason, file.getAbsolutePath()));
+		}
 	}
 
 }
