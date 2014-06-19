@@ -1,7 +1,6 @@
 package org.hive2hive.core.processes.implementations.context;
 
 import java.security.PublicKey;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -17,14 +16,12 @@ import org.hive2hive.core.processes.implementations.notify.BaseNotificationMessa
 public class NotifyProcessContext implements IConsumeNotificationFactory, IConsumeLocations, IProvideLocations {
 
 	private final IConsumeNotificationFactory providerContext;
-	private final Set<PeerAddress> unreachablePeers;
 	private Map<String, PublicKey> userPublicKeys;
 	private Map<String, List<PeerAddress>> allLocations;
 	private Locations locations;
 
 	public NotifyProcessContext(IConsumeNotificationFactory providerContext) {
 		this.providerContext = providerContext;
-		this.unreachablePeers = new HashSet<PeerAddress>();
 	}
 
 	public void setUserPublicKeys(Map<String, PublicKey> keys) {

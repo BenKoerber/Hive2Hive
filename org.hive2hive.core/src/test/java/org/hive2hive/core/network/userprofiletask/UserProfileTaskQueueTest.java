@@ -199,7 +199,7 @@ public class UserProfileTaskQueueTest extends H2HJUnitTest {
 			InvalidCipherTextException, IllegalBlockSizeException, BadPaddingException, ClassNotFoundException, IOException,
 			NoPeerConnectionException {
 		String userId = NetworkTestUtil.randomString();
-		TestUserProfileTask userProfileTask = new TestUserProfileTask();
+//		TestUserProfileTask userProfileTask = new TestUserProfileTask();
 		KeyPair key = EncryptionUtil.generateRSAKeyPair(H2HConstants.KEYLENGTH_USER_KEYS);
 		NetworkManager node = network.get(random.nextInt(networkSize));
 		PublicKeyManager publicKeyManager = new PublicKeyManager(userId, key, node.getDataManager());

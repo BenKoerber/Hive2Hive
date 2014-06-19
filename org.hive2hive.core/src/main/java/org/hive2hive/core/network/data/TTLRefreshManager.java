@@ -12,6 +12,7 @@ import org.slf4j.LoggerFactory;
  * been stored in the network.
  * 
  * @author Seppi
+ * @deprecated Entire class is not used
  */
 public class TTLRefreshManager {
 
@@ -20,12 +21,12 @@ public class TTLRefreshManager {
 	private Timer timer;
 	private RefreshTask task;
 
-	private final UserProfileManager profileManager;
-	private final DataManager dataManager;
+//	private final UserProfileManager profileManager;
+//	private final DataManager dataManager;
 
 	public TTLRefreshManager(UserProfileManager profileManager, DataManager dataManager) {
-		this.profileManager = profileManager;
-		this.dataManager = dataManager;
+//		this.profileManager = profileManager;
+//		this.dataManager = dataManager;
 	}
 
 	public void start() {
